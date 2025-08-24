@@ -1,0 +1,263 @@
+{
+  "info": {
+    "name": "MusikaStudio API JAVA",
+    "_postman_id": "a7e6c1c9-2c0f-4f0a-9e22-6e1a2d5b7e11",
+    "description": "Colección profesional para probar la API de MusikaStudio con carpetas, variables, scripts y tests.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "adminUser", "value": "admin" },
+    { "key": "adminPass", "value": "Admin123!" },
+    { "key": "clienteUser", "value": "cliente1" },
+    { "key": "clientePass", "value": "Cliente123!" },
+    { "key": "vendedorUser", "value": "vendedor1" },
+    { "key": "vendedorPass", "value": "Vendedor123!" },
+    { "key": "loginRole", "value": "ADMIN" },
+    { "key": "loginUser", "value": "" },
+    { "key": "loginPass", "value": "" },
+    { "key": "accessToken", "value": "" },
+    { "key": "refreshToken", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register (CLIENTE por defecto)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{clienteUser}}\",\n  \"email\": \"cliente1@musikastudio.local\",\n  \"password\": \"{{clientePass}}\",\n  \"nombre\": \"Cliente\",\n  \"apellido\": \"Demo\",\n  \"usuarioAuditoria\": \"system\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Registro 201/200/409', function(){",
+                  "  pm.expect([200,201,409]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{loginUser}}\",\n  \"password\": \"{{loginPass}}\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var role = (pm.collectionVariables.get('loginRole') || 'ADMIN').toUpperCase();",
+                  "if(role === 'ADMIN'){ pm.collectionVariables.set('loginUser', pm.collectionVariables.get('adminUser')); pm.collectionVariables.set('loginPass', pm.collectionVariables.get('adminPass')); }",
+                  "else if(role === 'VENDEDOR'){ pm.collectionVariables.set('loginUser', pm.collectionVariables.get('vendedorUser')); pm.collectionVariables.set('loginPass', pm.collectionVariables.get('vendedorPass')); }",
+                  "else { pm.collectionVariables.set('loginUser', pm.collectionVariables.get('clienteUser')); pm.collectionVariables.set('loginPass', pm.collectionVariables.get('clientePass')); }"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login OK', function(){ pm.expect(pm.response.code).to.be.oneOf([200]); });",
+                  "var json = pm.response.json();",
+                  "pm.collectionVariables.set('accessToken', json.accessToken || json.token || '');",
+                  "pm.collectionVariables.set('refreshToken', json.refreshToken || '');",
+                  "pm.test('Tokens guardados', function(){ pm.expect(pm.collectionVariables.get('accessToken')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/auth/refresh", "host": ["{{baseUrl}}"], "path": ["auth", "refresh"] },
+            "body": { "mode": "raw", "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}" }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "type": "text/javascript", "exec": [
+                "var json = pm.response.json();",
+                "if(json.accessToken){ pm.collectionVariables.set('accessToken', json.accessToken); }",
+                "pm.test('Refrescado', function(){ pm.expect(pm.response.code).to.be.oneOf([200]); });"
+              ] }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Público",
+      "item": [
+        {
+          "name": "Listar categorías (público)",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/categorias", "host": ["{{baseUrl}}"], "path": ["categorias"] } }
+        },
+        {
+          "name": "Listar instrumentos (público)",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/instrumentos?q=guitarra&categoriaId=1&precioMin=100&precioMax=2000&page=0&size=10&sort=precio,asc", "host": ["{{baseUrl}}"], "path": ["instrumentos"], "query": [
+            {"key":"q","value":"guitarra"},
+            {"key":"categoriaId","value":"1"},
+            {"key":"precioMin","value":"100"},
+            {"key":"precioMax","value":"2000"},
+            {"key":"page","value":"0"},
+            {"key":"size","value":"10"},
+            {"key":"sort","value":"precio,asc"}
+          ] } },
+          "description": "Listado público de instrumentos publicados. Pendiente de implementación de backend si aún no existe."
+        },
+        {
+          "name": "Detalle instrumento (público)",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/instrumentos/1", "host": ["{{baseUrl}}"], "path": ["instrumentos","1"] } }
+        },
+        {
+          "name": "Detalle categoría (público)",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/categorias/1", "host": ["{{baseUrl}}"], "path": ["categorias","1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Usuarios (ADMIN)",
+      "item": [
+        {
+          "name": "Listar usuarios",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/usuarios?limit=20&offset=0", "host": ["{{baseUrl}}"], "path": ["usuarios"], "query": [{"key":"limit","value":"20"},{"key":"offset","value":"0"}] } },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('200', function(){ pm.expect(pm.response.code).to.eql(200); });"] } } ]
+        },
+        {
+          "name": "Obtener usuario por ID",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/usuarios/1", "host": ["{{baseUrl}}"], "path": ["usuarios","1"] } }
+        },
+        {
+          "name": "Cambiar rol de usuario",
+          "request": { "method": "PUT", "url": { "raw": "{{baseUrl}}/usuarios/2/rol/1", "host": ["{{baseUrl}}"], "path": ["usuarios","2","rol","1"] } },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('200/204', function(){ pm.expect([200,204]).to.include(pm.response.code); });"] } } ]
+        },
+        {
+          "name": "Eliminar usuario (soft)",
+          "request": { "method": "DELETE", "url": { "raw": "{{baseUrl}}/usuarios/3", "host": ["{{baseUrl}}"], "path": ["usuarios","3"] } },
+          "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('200/204', function(){ pm.expect([200,204]).to.include(pm.response.code); });"] } } ]
+        },
+        {
+          "name": "Crear usuario ADMIN",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/admin/users", "host": ["{{baseUrl}}"], "path": ["admin","users"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin2\",\n  \"email\": \"admin2@musikastudio.local\",\n  \"password\": \"Admin123!\",\n  \"nombre\": \"Admin\",\n  \"apellido\": \"Two\",\n  \"telefono\": \"999999999\",\n  \"direccion\": \"HQ\",\n  \"numeroDocumento\": \"00000002\",\n  \"idTipoDocumento\": null,\n  \"roleName\": \"ADMIN\",\n  \"usuarioAuditoria\": \"system\"\n}"
+            }
+          },
+          "event": [
+            { "listen": "test", "script": { "type": "text/javascript", "exec": [
+              "pm.test('201/200/409', function(){ pm.expect([200,201,409]).to.include(pm.response.code); });"
+            ] } }
+          ]
+        },
+        {
+          "name": "Crear usuario VENDEDOR",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/admin/users", "host": ["{{baseUrl}}"], "path": ["admin","users"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"vendedor1\",\n  \"email\": \"vendedor1@musikastudio.local\",\n  \"password\": \"Vendedor123!\",\n  \"nombre\": \"Vende\",\n  \"apellido\": \"Dor\",\n  \"telefono\": \"988888888\",\n  \"direccion\": \"Tienda\",\n  \"numeroDocumento\": \"00010001\",\n  \"idTipoDocumento\": null,\n  \"roleName\": \"VENDEDOR\",\n  \"usuarioAuditoria\": \"system\"\n}"
+            }
+          },
+          "event": [
+            { "listen": "test", "script": { "type": "text/javascript", "exec": [
+              "pm.test('201/200/409', function(){ pm.expect([200,201,409]).to.include(pm.response.code); });"
+            ] } }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Instrumentos (Privado)",
+      "item": [
+        { "name": "Obtener instrumento por ID (Privado)", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/instrumentos/1", "host": ["{{baseUrl}}"], "path": ["instrumentos","1"] } } },
+        { "name": "Listar instrumentos (Privado)", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/instrumentos", "host": ["{{baseUrl}}"], "path": ["instrumentos"] } } },
+        { "name": "Crear instrumento (Privado)", "request": { "method": "POST", "header": [ { "key": "Content-Type", "value": "application/json" } ], "url": { "raw": "{{baseUrl}}/instrumentos", "host": ["{{baseUrl}}"], "path": ["instrumentos"] }, "body": { "mode": "raw", "raw": "{\n  \"codigo\": \"INS-001\",\n  \"nombre\": \"Guitarra Acústica\",\n  \"descripcion\": \"Cuerpo de caoba\",\n  \"precio\": 499.99,\n  \"stock\": 10,\n  \"stockMinimo\": 2,\n  \"urlImagen\": \"https://example.com/img.jpg\",\n  \"idCategoria\": 1,\n  \"idMarca\": 1\n}" } } },
+        { "name": "Editar instrumento (Privado)", "request": { "method": "PUT", "header": [ { "key": "Content-Type", "value": "application/json" } ], "url": { "raw": "{{baseUrl}}/instrumentos/1", "host": ["{{baseUrl}}"], "path": ["instrumentos","1"] }, "body": { "mode": "raw", "raw": "{\n  \"codigo\": \"INS-001\",\n  \"nombre\": \"Guitarra Acústica Pro\",\n  \"descripcion\": \"Actualizada\",\n  \"precio\": 549.99,\n  \"stock\": 8,\n  \"stockMinimo\": 2,\n  \"urlImagen\": \"https://example.com/img2.jpg\",\n  \"idCategoria\": 1,\n  \"idMarca\": 1,\n  \"activo\": true\n}" } } },
+        { "name": "Borrar instrumento (Privado)", "request": { "method": "DELETE", "url": { "raw": "{{baseUrl}}/instrumentos/1", "host": ["{{baseUrl}}"], "path": ["instrumentos","1"] } } }
+      ]
+    },
+    {
+      "name": "Categorias (Privado)",
+      "item": [
+        { "name": "Obtener categoría por ID (Privado)", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/categorias/1", "host": ["{{baseUrl}}"], "path": ["categorias","1"] } } },
+        { "name": "Listar categorías (Privado)", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/categorias", "host": ["{{baseUrl}}"], "path": ["categorias"] } } },
+        { "name": "Crear categoría (Privado)", "request": { "method": "POST", "header": [ { "key": "Content-Type", "value": "application/json" } ], "url": { "raw": "{{baseUrl}}/admin/categorias", "host": ["{{baseUrl}}"], "path": ["admin","categorias"] }, "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Guitarras\",\n  \"descripcion\": \"Instrumentos de cuerda pulsada\"\n}" } } },
+        { "name": "Editar categoría (Privado)", "request": { "method": "PUT", "header": [ { "key": "Content-Type", "value": "application/json" } ], "url": { "raw": "{{baseUrl}}/admin/categorias/1", "host": ["{{baseUrl}}"], "path": ["admin","categorias","1"] }, "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Guitarras y Bajos\",\n  \"descripcion\": \"Actualizada\",\n  \"activo\": true\n}" } } },
+        { "name": "Borrar categoría (Privado)", "request": { "method": "DELETE", "url": { "raw": "{{baseUrl}}/admin/categorias/1", "host": ["{{baseUrl}}"], "path": ["admin","categorias","1"] } } },
+        { "name": "Activar categoría (Privado)", "request": { "method": "PATCH", "header": [ { "key": "Content-Type", "value": "application/json" } ], "url": { "raw": "{{baseUrl}}/admin/categorias/1/activar", "host": ["{{baseUrl}}"], "path": ["admin","categorias","1","activar"] }, "body": { "mode": "raw", "raw": "{\n  \"activo\": true\n}" } } }
+      ]
+    }
+,
+    {
+      "name": "Ventas",
+      "item": [
+        {
+          "name": "Crear venta (ADMIN/VENDEDOR)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/ventas", "host": ["{{baseUrl}}"], "path": ["ventas"] },
+            "body": { "mode": "raw", "raw": "{\n  \"idUsuario\": 1,\n  \"idMetodoPago\": 1,\n  \"precioTotal\": 100.00,\n  \"impuesto\": 18.00,\n  \"descuento\": 0.00,\n  \"observaciones\": \"Venta demo\"\n}" }
+          }
+        },
+        {
+          "name": "Actualizar venta (ADMIN/VENDEDOR)",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/ventas/1", "host": ["{{baseUrl}}"], "path": ["ventas","1"] },
+            "body": { "mode": "raw", "raw": "{\n  \"precioTotal\": 120.00,\n  \"impuesto\": 18.00,\n  \"descuento\": 5.00,\n  \"observaciones\": \"Ajuste demo\"\n}" }
+          }
+        },
+        {
+          "name": "Cancelar venta (ADMIN/VENDEDOR)",
+          "request": { "method": "POST", "url": { "raw": "{{baseUrl}}/ventas/1/cancelar", "host": ["{{baseUrl}}"], "path": ["ventas","1","cancelar"] } }
+        },
+        {
+          "name": "Listar ventas",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/ventas?limit=20&offset=0", "host": ["{{baseUrl}}"], "path": ["ventas"], "query": [{"key":"limit","value":"20"},{"key":"offset","value":"0"}] } }
+        },
+        {
+          "name": "Obtener venta por ID",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/ventas/1", "host": ["{{baseUrl}}"], "path": ["ventas","1"] } }
+        }
+        ,
+        {
+          "name": "Detalle de venta",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/ventas/1/detalles", "host": ["{{baseUrl}}"], "path": ["ventas","1","detalles"] } }
+        }
+        
+      ]
+    }
+  ]
+}
