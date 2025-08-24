@@ -2,7 +2,7 @@ package pe.cibertec.musikastudioapi.infrastructure.persistence.seguridad.reposit
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import pe.cibertec.musikastudio.infrastructure.persistence.seguridad.entity.UsuarioEntity;
+import pe.cibertec.musikastudioapi.infrastructure.persistence.seguridad.entity.UsuarioEntity;
 
 import java.util.Optional;
 

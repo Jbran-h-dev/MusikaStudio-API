@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pe.cibertec.musikastudio.application.seguridad.usecase.AutenticarUsuarioUseCase;
-import pe.cibertec.musikastudio.application.seguridad.usecase.RefrescarTokenUseCase;
-import pe.cibertec.musikastudio.application.seguridad.usecase.RegistrarUsuarioUseCase;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.AuthResponse;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.LoginRequest;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.RefreshRequest;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.RegisterRequest;
+import pe.cibertec.musikastudioapi.application.seguridad.usecase.AutenticarUsuarioUseCase;
+import pe.cibertec.musikastudioapi.application.seguridad.usecase.RefrescarTokenUseCase;
+import pe.cibertec.musikastudioapi.application.seguridad.usecase.RegistrarUsuarioUseCase;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.AuthResponse;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.LoginRequest;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.RefreshRequest;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.RegisterRequest;
 
 @RestController
 @RequestMapping("/auth")

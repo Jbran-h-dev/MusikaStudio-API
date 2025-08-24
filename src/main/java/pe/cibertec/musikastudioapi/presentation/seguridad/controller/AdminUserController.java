@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pe.cibertec.musikastudio.application.seguridad.usecase.RegistrarUsuarioUseCase;
-import pe.cibertec.musikastudio.infrastructure.persistence.seguridad.repository.RolRepository;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.AdminCreateUserRequest;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.AuthResponse;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.RegisterRequest;
+import pe.cibertec.musikastudioapi.application.seguridad.usecase.RegistrarUsuarioUseCase;
+import pe.cibertec.musikastudioapi.infrastructure.persistence.seguridad.repository.RolRepository;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.AdminCreateUserRequest;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.AuthResponse;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.RegisterRequest;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 

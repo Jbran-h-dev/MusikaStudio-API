@@ -5,9 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pe.cibertec.musikastudio.application.catalogo.service.CategoriaAdminService;
-import pe.cibertec.musikastudio.presentation.catalogo.dto.CategoriaCreateUpdateRequest;
-import pe.cibertec.musikastudio.presentation.catalogo.dto.CategoriaDto;
+import pe.cibertec.musikastudioapi.presentation.catalogo.dto.CategoriaCreateUpdateRequest;
+import pe.cibertec.musikastudioapi.presentation.catalogo.dto.CategoriaDto;
+import pe.cibertec.musikastudioapi.application.catalogo.service.CategoriaAdminService;
 
 @RestController
 @RequestMapping("/admin/categorias")

@@ -5,14 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pe.cibertec.musikastudio.application.catalogo.usecase.ActualizarInstrumentoUseCase;
-import pe.cibertec.musikastudio.application.catalogo.usecase.CrearInstrumentoUseCase;
-import pe.cibertec.musikastudio.application.catalogo.usecase.EliminarInstrumentoUseCase;
-import pe.cibertec.musikastudio.application.catalogo.usecase.ListarInstrumentosUseCase;
-import pe.cibertec.musikastudio.application.catalogo.usecase.ObtenerInstrumentoUseCase;
-import pe.cibertec.musikastudio.infrastructure.persistence.catalogo.entity.InstrumentoEntity;
-import pe.cibertec.musikastudio.presentation.catalogo.dto.InstrumentoCreateUpdateRequest;
-import pe.cibertec.musikastudio.presentation.catalogo.dto.InstrumentoDto;
+import pe.cibertec.musikastudioapi.application.catalogo.usecase.ActualizarInstrumentoUseCase;
+import pe.cibertec.musikastudioapi.application.catalogo.usecase.CrearInstrumentoUseCase;
+import pe.cibertec.musikastudioapi.application.catalogo.usecase.EliminarInstrumentoUseCase;
+import pe.cibertec.musikastudioapi.application.catalogo.usecase.ListarInstrumentosUseCase;
+import pe.cibertec.musikastudioapi.application.catalogo.usecase.ObtenerInstrumentoUseCase;
+import pe.cibertec.musikastudioapi.infrastructure.persistence.catalogo.entity.InstrumentoEntity;
+import pe.cibertec.musikastudioapi.presentation.catalogo.dto.InstrumentoCreateUpdateRequest;
+import pe.cibertec.musikastudioapi.presentation.catalogo.dto.InstrumentoDto;
 
 import java.util.List;
 

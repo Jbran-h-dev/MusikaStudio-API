@@ -7,8 +7,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import pe.cibertec.musikastudio.domain.ventas.service.VentaService;
-import pe.cibertec.musikastudio.presentation.ventas.dto.VentaDtos;
+import pe.cibertec.musikastudioapi.domain.ventas.service.VentaService;
+import pe.cibertec.musikastudioapi.presentation.ventas.dto.VentaDtos;
 
 import java.util.List;
 

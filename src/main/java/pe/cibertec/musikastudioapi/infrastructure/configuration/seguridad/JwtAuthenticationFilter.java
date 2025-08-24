@@ -16,7 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import pe.cibertec.musikastudio.infrastructure.security.TokenService;
+import pe.cibertec.musikastudioapi.infrastructure.security.TokenService;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {

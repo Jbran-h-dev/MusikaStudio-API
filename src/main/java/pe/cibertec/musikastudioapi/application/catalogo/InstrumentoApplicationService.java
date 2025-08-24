@@ -3,10 +3,10 @@ package pe.cibertec.musikastudioapi.application.catalogo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pe.cibertec.musikastudio.domain.catalogo.service.InstrumentoService;
-import pe.cibertec.musikastudio.infrastructure.persistence.catalogo.entity.InstrumentoEntity;
-import pe.cibertec.musikastudio.presentation.catalogo.dto.InstrumentoCreateUpdateRequest;
-import pe.cibertec.musikastudio.presentation.catalogo.dto.InstrumentoDto;
+import pe.cibertec.musikastudioapi.domain.catalogo.service.InstrumentoService;
+import pe.cibertec.musikastudioapi.infrastructure.persistence.catalogo.entity.InstrumentoEntity;
+import pe.cibertec.musikastudioapi.presentation.catalogo.dto.InstrumentoCreateUpdateRequest;
+import pe.cibertec.musikastudioapi.presentation.catalogo.dto.InstrumentoDto;
 
 import java.util.List;
 

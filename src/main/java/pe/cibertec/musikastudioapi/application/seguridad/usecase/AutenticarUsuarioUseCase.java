@@ -6,9 +6,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.AuthResponse;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.LoginRequest;
-import pe.cibertec.musikastudio.infrastructure.security.TokenService;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.AuthResponse;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.LoginRequest;
+import pe.cibertec.musikastudioapi.infrastructure.security.TokenService;
 
 @Service
 @RequiredArgsConstructor

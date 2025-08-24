@@ -5,7 +5,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
-import pe.cibertec.musikastudio.presentation.catalogo.dto.CategoriaDto;
+import pe.cibertec.musikastudioapi.presentation.catalogo.dto.CategoriaDto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

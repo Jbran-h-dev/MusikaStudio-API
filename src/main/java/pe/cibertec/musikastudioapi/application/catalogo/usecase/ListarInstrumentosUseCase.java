@@ -3,8 +3,8 @@ package pe.cibertec.musikastudioapi.application.catalogo.usecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pe.cibertec.musikastudio.domain.catalogo.service.InstrumentoService;
-import pe.cibertec.musikastudio.infrastructure.persistence.catalogo.entity.InstrumentoEntity;
+import pe.cibertec.musikastudioapi.domain.catalogo.service.InstrumentoService;
+import pe.cibertec.musikastudioapi.infrastructure.persistence.catalogo.entity.InstrumentoEntity;
 
 import java.util.List;
 

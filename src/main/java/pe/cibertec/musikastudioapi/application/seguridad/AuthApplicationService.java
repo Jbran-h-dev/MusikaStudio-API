@@ -8,12 +8,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import pe.cibertec.musikastudio.domain.seguridad.service.AuthRegistrationService;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.AuthResponse;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.LoginRequest;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.RefreshRequest;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.RegisterRequest;
-import pe.cibertec.musikastudio.infrastructure.security.TokenService;
+import pe.cibertec.musikastudioapi.domain.seguridad.service.AuthRegistrationService;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.AuthResponse;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.LoginRequest;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.RefreshRequest;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.RegisterRequest;
+import pe.cibertec.musikastudioapi.infrastructure.security.TokenService;
 
 @Service
 @RequiredArgsConstructor

@@ -2,9 +2,9 @@ package pe.cibertec.musikastudioapi.application.seguridad.usecase;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pe.cibertec.musikastudio.domain.seguridad.service.AuthRegistrationService;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.AuthResponse;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.RegisterRequest;
+import pe.cibertec.musikastudioapi.domain.seguridad.service.AuthRegistrationService;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.AuthResponse;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.RegisterRequest;
 
 @Service
 @RequiredArgsConstructor

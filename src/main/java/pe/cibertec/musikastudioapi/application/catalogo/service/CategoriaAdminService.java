@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
-import pe.cibertec.musikastudio.infrastructure.persistence.catalogo.entity.CategoriaEntity;
-import pe.cibertec.musikastudio.infrastructure.persistence.catalogo.repository.CategoriaRepository;
-import pe.cibertec.musikastudio.presentation.catalogo.dto.CategoriaDto;
+import pe.cibertec.musikastudioapi.infrastructure.persistence.catalogo.entity.CategoriaEntity;
+import pe.cibertec.musikastudioapi.infrastructure.persistence.catalogo.repository.CategoriaRepository;
+import pe.cibertec.musikastudioapi.presentation.catalogo.dto.CategoriaDto;
 
 import java.util.Optional;
 

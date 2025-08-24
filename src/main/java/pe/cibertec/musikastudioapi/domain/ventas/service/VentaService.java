@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-import pe.cibertec.musikastudio.presentation.ventas.dto.VentaDtos;
+import pe.cibertec.musikastudioapi.presentation.ventas.dto.VentaDtos;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;

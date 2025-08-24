@@ -9,8 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-import pe.cibertec.musikastudio.presentation.seguridad.dto.RegisterRequest;
-import pe.cibertec.musikastudio.infrastructure.security.TokenService;
+import pe.cibertec.musikastudioapi.presentation.seguridad.dto.RegisterRequest;
+import pe.cibertec.musikastudioapi.infrastructure.security.TokenService;
 
 @Service
 @RequiredArgsConstructor

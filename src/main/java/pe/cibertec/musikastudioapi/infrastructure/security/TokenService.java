@@ -5,7 +5,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import pe.cibertec.musikastudio.infrastructure.configuration.seguridad.JwtProperties;
+import pe.cibertec.musikastudioapi.infrastructure.configuration.seguridad.JwtProperties;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;

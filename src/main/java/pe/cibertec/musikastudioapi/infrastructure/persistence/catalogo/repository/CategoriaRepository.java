@@ -2,7 +2,7 @@ package pe.cibertec.musikastudioapi.infrastructure.persistence.catalogo.reposito
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pe.cibertec.musikastudio.infrastructure.persistence.catalogo.entity.CategoriaEntity;
+import pe.cibertec.musikastudioapi.infrastructure.persistence.catalogo.entity.CategoriaEntity;
 
 import java.util.Optional;
 

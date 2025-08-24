@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pe.cibertec.musikastudio.application.catalogo.service.CategoriaQueryService;
-import pe.cibertec.musikastudio.presentation.catalogo.dto.CategoriaDto;
+import pe.cibertec.musikastudioapi.application.catalogo.service.CategoriaQueryService;
+import pe.cibertec.musikastudioapi.presentation.catalogo.dto.CategoriaDto;
 
 import java.util.List;
 
